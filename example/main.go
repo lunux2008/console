@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "home/luxu-so/test/t3/routers"
+	_ "github.com/lunux2008/console/example/routers"
 	"github.com/lunux2008/console"
 )
 

@@ -10,26 +10,29 @@ type MainCommand struct {
 }
 
 func (c *MainCommand) Handle() {
-	// fmt.Println("ok")
-	name, _ := c.GetString("name", "ok")
-	fmt.Println(name)
-	age, _ := c.GetInt("age", 30)
-	fmt.Println(age)
-	high, _ := c.GetBool("bool")
-	fmt.Println(high)
-	fl, _ := c.GetFloat("float", 11)
-	fmt.Println(fl)
+
+	stringArg, _ := c.GetString("string", "def")
+	fmt.Println(stringArg)
+
+	intArg, _ := c.GetInt("age", 200)
+	fmt.Println(intArg)
+
+	boolArg, _ := c.GetBool("bool", false)
+	fmt.Println(boolArg)
+
+	floatArg, _ := c.GetFloat("float", 1.1)
+	fmt.Println(floatArg)
 	
-	ss := c.GetStrings("ss", []string{"c", "d"})
-	fmt.Println(ss)
+	sliceArg := c.GetStrings("slice", []string{"c", "d", "e"})
+	fmt.Println(sliceArg)
 }
 
 func (c *MainCommand) GetOptions() []*console.Option {
 	return []*console.Option {
-		console.NewOption("name", "default", "姓名"),
-		console.NewOption("age", 10, "年龄"),
-		console.NewOption("bool", true, "BOOL"),
-		console.NewOption("float", 10, "float"),
-		console.NewOption("ss", []string{"a", "b"}, "ss"),
+		console.NewOption("string", "default", "字符串"),
+		console.NewOption("int", 100, "整形"),
+		console.NewOption("bool", true, "布尔"),
+		console.NewOption("float", 10.1, "浮点"),
+		console.NewOption("slice", []string{"a", "b", "c"}, "数组"),
 	}
 }

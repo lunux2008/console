@@ -1,0 +1,7 @@
+用法：
+
+1. 使用配置文件决定运行环境    go run main.go console demo  
+2. 使用命令行参数决定运行环境  go run main.go console::dev demo
+
+命令行传递参数：
+go run main.go console demo -name=test -age=10 -arr=[a b c]
