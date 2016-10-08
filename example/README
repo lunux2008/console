@@ -1,4 +1,5 @@
 用法：
+请先安装BEEGO：go get github.com/astaxie/beego
 
 1. 使用配置文件决定运行环境    go run main.go console demo  
 2. 使用命令行参数决定运行环境  go run main.go console::dev demo

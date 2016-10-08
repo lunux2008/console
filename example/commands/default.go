@@ -17,7 +17,7 @@ func (c *MainCommand) Handle() {
 	fmt.Println(stringArg)
 	
 	// 整形
-	intArg, _ := c.GetInt("age", 200)
+	intArg, _ := c.GetInt("int", 200)
 	fmt.Println(intArg)
 
 	// 布尔
