@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"flag"
 	"strings"
+	"github.com/astaxie/beego"
 )
 
 type Command struct {
@@ -308,9 +309,15 @@ func (p *CommandRegister) Dispatch() {
 		os.Exit(0)
 	}
 	
-	if os.Args[1] != "console" {
+	envArgs := strings.Split(os.Args[1], "::")
+	
+	if len(envArgs) == 0 || envArgs[0] != "console" {
 		fmt.Println("Invalid Console Args")
 		os.Exit(0)
+	}
+	
+	if len(envArgs) == 2 {
+		beego.BConfig.RunMode = envArgs[1]
 	}
 
 	c, ok := p.routers[os.Args[2]]
