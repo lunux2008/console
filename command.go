@@ -115,22 +115,20 @@ func (c *Command) GetString(key string, def ...string) (string, error) {
 	return "", nil
 }
 
-
 // GetStrings returns the input string slice by key string or the default value while it's present and input is blank
-// it's designed for multi-value input field such as checkbox(input[type=checkbox]), multi-selection.
-func (c *Command) GetStrings(key string, def ...[]string) []string {
+func (c *Command) GetStrings(key string, def ...[]string) ([]string, error) {
 	var defv []string
 	v := c.Query(key)
 	
 	if v != nil && v.CommandValue != "" {
-		return strings.Split(strings.Trim(v.CommandValue, "[] "), " ")
+		return strings.Split(strings.Trim(v.CommandValue, "[] "), " "), nil
 	} else if len(def) > 0 {
-		return def[0]
+		return def[0], nil
 	} else if v.DefaultValue != nil {
-		return v.DefaultValue.([]string)
+		return v.DefaultValue.([]string), nil
 	}
 
-	return defv
+	return defv, nil
 }
 
 // GetInt returns input as an int or the default value while it's present and input is blank
@@ -149,6 +147,33 @@ func (c *Command) GetInt(key string, def ...int) (int, error) {
 	return 0, nil
 }
 
+func (c *Command) GetInts(key string, def ...[]int) ([]int, error) {
+	var defv []int
+	v := c.Query(key)
+	
+	if v != nil && v.CommandValue != "" {
+		strs := strings.Split(strings.Trim(v.CommandValue, "[] "), " ")
+		ints := []int{}
+		if len(strs) > 0 {
+			for _, str := range strs {
+				if i64, err := strconv.ParseInt(str, 10, 10); err == nil {
+					ints = append(ints, int(i64))
+				} else {
+					return ints, err
+				}
+			}	
+		}
+		
+		return ints, nil
+	} else if len(def) > 0 {
+		return def[0], nil
+	} else if v.DefaultValue != nil {
+		return v.DefaultValue.([]int), nil
+	}
+
+	return defv, nil
+}
+
 // GetInt8 return input as an int8 or the default value while it's present and input is blank
 func (c *Command) GetInt8(key string, def ...int8) (int8, error) {
 	v := c.Query(key)
@@ -165,6 +190,32 @@ func (c *Command) GetInt8(key string, def ...int8) (int8, error) {
 	return 0, nil
 }
 
+func (c *Command) GetInt8s(key string, def ...[]int8) ([]int8, error) {
+	var defv []int8
+	v := c.Query(key)
+	
+	if v != nil && v.CommandValue != "" {
+		strs := strings.Split(strings.Trim(v.CommandValue, "[] "), " ")
+		int8s := []int8{}
+		if len(strs) > 0 {
+			for _, str := range strs {
+				if i64, err := strconv.ParseInt(str, 10, 8); err == nil {
+					int8s = append(int8s, int8(i64))
+				} else {
+					return int8s, err
+				}
+			}	
+		}
+		
+		return int8s, nil
+	} else if len(def) > 0 {
+		return def[0], nil
+	} else if v.DefaultValue != nil {
+		return v.DefaultValue.([]int8), nil
+	}
+
+	return defv, nil
+}
 
 // GetInt16 returns input as an int16 or the default value while it's present and input is blank
 func (c *Command) GetInt16(key string, def ...int16) (int16, error) {
@@ -180,6 +231,33 @@ func (c *Command) GetInt16(key string, def ...int16) (int16, error) {
 	}
 
 	return 0, nil
+}
+
+func (c *Command) GetInt16s(key string, def ...[]int16) ([]int16, error) {
+	var defv []int16
+	v := c.Query(key)
+	
+	if v != nil && v.CommandValue != "" {
+		strs := strings.Split(strings.Trim(v.CommandValue, "[] "), " ")
+		int16s := []int16{}
+		if len(strs) > 0 {
+			for _, str := range strs {
+				if i64, err := strconv.ParseInt(str, 10, 16); err == nil {
+					int16s = append(int16s, int16(i64))
+				} else {
+					return int16s, err
+				}
+			}	
+		}
+		
+		return int16s, nil
+	} else if len(def) > 0 {
+		return def[0], nil
+	} else if v.DefaultValue != nil {
+		return v.DefaultValue.([]int16), nil
+	}
+
+	return defv, nil
 }
 
 // GetInt32 returns input as an int32 or the default value while it's present and input is blank
@@ -198,6 +276,33 @@ func (c *Command) GetInt32(key string, def ...int32) (int32, error) {
 	return 0, nil
 }
 
+func (c *Command) GetInt32s(key string, def ...[]int32) ([]int32, error) {
+	var defv []int32
+	v := c.Query(key)
+	
+	if v != nil && v.CommandValue != "" {
+		strs := strings.Split(strings.Trim(v.CommandValue, "[] "), " ")
+		int32s := []int32{}
+		if len(strs) > 0 {
+			for _, str := range strs {
+				if i64, err := strconv.ParseInt(str, 10, 32); err == nil {
+					int32s = append(int32s, int32(i64))
+				} else {
+					return int32s, err
+				}
+			}	
+		}
+		
+		return int32s, nil
+	} else if len(def) > 0 {
+		return def[0], nil
+	} else if v.DefaultValue != nil {
+		return v.DefaultValue.([]int32), nil
+	}
+
+	return defv, nil
+}
+
 // GetInt64 returns input value as int64 or the default value while it's present and input is blank.
 func (c *Command) GetInt64(key string, def ...int64) (int64, error) {
 	v := c.Query(key)
@@ -214,6 +319,33 @@ func (c *Command) GetInt64(key string, def ...int64) (int64, error) {
 	return 0, nil
 }
 
+func (c *Command) GetInt64s(key string, def ...[]int64) ([]int64, error) {
+	var defv []int64
+	v := c.Query(key)
+	
+	if v != nil && v.CommandValue != "" {
+		strs := strings.Split(strings.Trim(v.CommandValue, "[] "), " ")
+		int64s := []int64{}
+		if len(strs) > 0 {
+			for _, str := range strs {
+				if i64, err := strconv.ParseInt(str, 10, 64); err == nil {
+					int64s = append(int64s, int64(i64))
+				} else {
+					return int64s, err
+				}
+			}	
+		}
+		
+		return int64s, nil
+	} else if len(def) > 0 {
+		return def[0], nil
+	} else if v.DefaultValue != nil {
+		return v.DefaultValue.([]int64), nil
+	}
+
+	return defv, nil
+}
+
 // GetBool returns input value as bool or the default value while it's present and input is blank.
 func (c *Command) GetBool(key string, def ...bool) (bool, error) {
 	v := c.Query(key)
@@ -227,6 +359,33 @@ func (c *Command) GetBool(key string, def ...bool) (bool, error) {
 	}
 
 	return false, nil
+}
+
+func (c *Command) GetBools(key string, def ...[]bool) ([]bool, error) {
+	var defv []bool
+	v := c.Query(key)
+	
+	if v != nil && v.CommandValue != "" {
+		strs := strings.Split(strings.Trim(v.CommandValue, "[] "), " ")
+		bools := []bool{}
+		if len(strs) > 0 {
+			for _, str := range strs {
+				if b, err := strconv.ParseBool(str); err == nil {
+					bools = append(bools, b)
+				} else {
+					return bools, err
+				}
+			}	
+		}
+		
+		return bools, nil
+	} else if len(def) > 0 {
+		return def[0], nil
+	} else if v.DefaultValue != nil {
+		return v.DefaultValue.([]bool), nil
+	}
+
+	return defv, nil
 }
 
 // GetFloat returns input value as float64 or the default value while it's present and input is blank.
@@ -249,6 +408,33 @@ func (c *Command) GetFloat(key string, def ...float64) (float64, error) {
 	}
 
 	return 0.0, nil
+}
+
+func (c *Command) GetFloats(key string, def ...[]float64) ([]float64, error) {
+	var defv []float64
+	v := c.Query(key)
+	
+	if v != nil && v.CommandValue != "" {
+		strs := strings.Split(strings.Trim(v.CommandValue, "[] "), " ")
+		float64s := []float64{}
+		if len(strs) > 0 {
+			for _, str := range strs {
+				if f64, err := strconv.ParseFloat(str, 64); err == nil {
+					float64s = append(float64s, f64)
+				} else {
+					return float64s, err
+				}
+			}	
+		}
+		
+		return float64s, nil
+	} else if len(def) > 0 {
+		return def[0], nil
+	} else if v.DefaultValue != nil {
+		return v.DefaultValue.([]float64), nil
+	}
+
+	return defv, nil
 }
 
 //
