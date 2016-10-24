@@ -1,8 +1,9 @@
-ÓÃ·¨£º
-ÇëÏÈ°²×°BEEGO£ºgo get github.com/astaxie/beego
+ç”¨æ³•ï¼š
+è¯·å…ˆå®‰è£…BEEGOï¼šgo get github.com/astaxie/beego
 
-1. Ê¹ÓÃÅäÖÃÎÄ¼ş¾ö¶¨ÔËĞĞ»·¾³    go run main.go console demo  
-2. Ê¹ÓÃÃüÁîĞĞ²ÎÊı¾ö¶¨ÔËĞĞ»·¾³  go run main.go console::dev demo
+1. ä½¿ç”¨é…ç½®æ–‡ä»¶å†³å®šè¿è¡Œç¯å¢ƒ    go run main.go console demo  
+2. ä½¿ç”¨å‘½ä»¤è¡Œå‚æ•°å†³å®šè¿è¡Œç¯å¢ƒ  go run main.go console::dev demo
+3. ä½¿ç”¨æ¨¡å— go run main.go console module1/demo
 
-ÃüÁîĞĞ´«µİ²ÎÊı£º
-go run main.go console demo -name=test -age=10 -arr=[a b c]
+å‘½ä»¤è¡Œä¼ é€’å‚æ•°ï¼š
+go run main.go console demo -name=test -age=10 -arr=[a b c] -ints=[1 2 3]
