@@ -46,10 +46,10 @@ func (c *MainCommand) Handle() {
 	// fmt.Println(bools)
 	
 	// 实用BEEGO读取CONF
-	// fmt.Println(beego.AppConfig.String("appname"))
+	fmt.Println(beego.AppConfig.String("appname"))
 	
 	// 查看当前运行环境
-	// fmt.Println(beego.AppConfig.String("env"))
+	fmt.Println(beego.AppConfig.String("env"))
 }
 
 func (c *MainCommand) GetOptions() []*console.Option {

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"flag"
 	"strings"
+	"path/filepath"
 	"github.com/astaxie/beego"
 )
 
@@ -510,6 +511,15 @@ func (p *CommandRegister) Dispatch() {
 	if !ok {
 		fmt.Println("Not Command Route Find For " + os.Args[2])
 		os.Exit(0)
+	}
+	
+	// load module conf
+	if strings.Contains(os.Args[2], "/") {
+		moduleArgs := strings.Split(os.Args[2], "/")
+		configPath := "modules/" + moduleArgs[0] + "/conf/app.conf"
+		if absConfigPath, err := filepath.Abs(configPath); err == nil {
+			beego.LoadAppConfig("ini", absConfigPath)
+		}
 	}
 	
 	merge   := false
