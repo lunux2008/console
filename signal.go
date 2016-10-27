@@ -56,9 +56,6 @@ func Reload() {
 	CheckPidFileExists()
 	
 	fmt.Println("reload success")
-	
-	fmt.Println(AppName)
-	fmt.Println(beego.AppConfig.String("key"))
 }
 
 func Restart() {
