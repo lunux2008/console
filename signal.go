@@ -9,7 +9,7 @@ import (
 
 func SignalNotify() {
 	sigs:= make(chan os.Signal)
-	signal.Notify(sigs, syscall.SIGUSR1, syscall.SIGUSR2, syscall.SIGINT, syscall.SIGTERM)
+	signal.Notify(sigs, syscall.SIGUSR1, syscall.SIGINT, syscall.SIGTERM, syscall.SIGHUP)
 
 	for {
 		msg := <-sigs
@@ -22,7 +22,7 @@ func SignalNotify() {
 			Terminate()
 		case syscall.SIGUSR1:
 			Reload()
-		case syscall.SIGUSR2:
+		case syscall.SIGHUP:
 			Restart()
 		}
 	}

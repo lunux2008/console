@@ -50,7 +50,7 @@ func SwitchControl(control string) {
 	case "reload":
 		SendSignal(syscall.SIGUSR1)
 	case "restart":
-		SendSignal(syscall.SIGUSR2)
+		SendSignal(syscall.SIGHUP)
 	case "stop":
 		SendSignal(syscall.SIGTERM)
 	}
