@@ -4,8 +4,6 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"fmt"
-	"github.com/astaxie/beego"
 )
 
 func SignalNotify() {
@@ -29,35 +27,4 @@ func SignalNotify() {
 	}
 }
 
-func Stop() {
-	RemoveFile(GetPidFile(AppName, ModuleName))
-	os.Exit(0)
-}
-
-func Terminate() {
-	RemoveFile(GetPidFile(AppName, ModuleName))
-	fmt.Println("signal: terminated")
-	os.Exit(0)
-} 
-
-func Reload() {
-	pidFile := GetPidFile(AppName, ModuleName)
-	if err := RemovePidFile(pidFile); err != nil {
-		panic(err)
-	}
-
-	if err := LoadConfig(ModuleName); err != nil {
-		fmt.Println(err)
-		os.Exit(0)
-	}
-	
-	AppName = beego.AppConfig.String("appname")	
-	
-	CheckPidFileExists()
-	
-	fmt.Println("reload success")
-}
-
-func Restart() {
-	fmt.Println("restart")
-}
+// todo 提供HOOKS
