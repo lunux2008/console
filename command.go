@@ -498,8 +498,7 @@ func (p *CommandRegister) Dispatch() {
 
 	c.Handle()
 
-	pidFile := GetPidFile(AppName, ModuleName)
-	if err := RemovePidFile(pidFile); err != nil {
+	if err := RemovePidFile(PidFile); err != nil {
 		panic(err)
 	}
 }

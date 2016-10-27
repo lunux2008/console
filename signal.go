@@ -4,6 +4,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"strconv"
 )
 
 func SignalNotify() {
@@ -24,6 +25,25 @@ func SignalNotify() {
 		case syscall.SIGUSR2:
 			Restart()
 		}
+	}
+}
+
+func SendSignal(sig syscall.Signal) {
+	var err error
+	var pid int64
+	var process *os.Process
+	
+	content := ReadFile(PidFile)
+	if pid, err = strconv.ParseInt(content, 10, 32); err != nil {
+		panic(err)
+	}
+	
+	if process, err = os.FindProcess(int(pid)); err != nil {
+		panic(err)
+	}
+	
+	if err = process.Signal(sig); err != nil {
+		panic(err)
 	}
 }
 
