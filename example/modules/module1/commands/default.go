@@ -50,6 +50,8 @@ func (c *MainCommand) Handle() {
 	
 	// 查看当前运行环境
 	fmt.Println(beego.AppConfig.String("env"))
+	
+	for {}
 }
 
 func (c *MainCommand) GetOptions() []*console.Option {

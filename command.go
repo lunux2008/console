@@ -7,8 +7,7 @@ import (
 	"fmt"
 	"flag"
 	"strings"
-	"path/filepath"
-	"github.com/astaxie/beego"
+	
 )
 
 type Command struct {
@@ -491,55 +490,16 @@ func (p *CommandRegister) Add(pattern string, c CommandInterface) {
 // Dispatch Event
 func (p *CommandRegister) Dispatch() {
 
-	if len(os.Args) < 3 {
-		fmt.Println("Not Enough Args")
-		os.Exit(0)
-	}
-	
-	envArgs := strings.Split(os.Args[1], "::")
-	
-	if len(envArgs) == 0 || envArgs[0] != "console" {
-		fmt.Println("Invalid Console Args")
-		os.Exit(0)
-	}
-	
-	if len(envArgs) == 2 {
-		beego.BConfig.RunMode = envArgs[1]
-	}
-
-	c, ok := p.routers[os.Args[2]]
+	c, ok := p.routers[RouteName]
 	if !ok {
-		fmt.Println("Not Command Route Find For " + os.Args[2])
+		fmt.Println("Not Registered Route: " + RouteName)
 		os.Exit(0)
 	}
-	
-	// load module conf
-	if strings.Contains(os.Args[2], "/") {
-		moduleArgs := strings.Split(os.Args[2], "/")
-		configPath := "modules/" + moduleArgs[0] + "/conf/app.conf"
-		if absConfigPath, err := filepath.Abs(configPath); err == nil {
-			beego.LoadAppConfig("ini", absConfigPath)
-		}
-	}
-	
-	merge   := false
-	newArgs := []string{}
-	
-	for _, v := range os.Args {
-		if merge {
-			newArgs[len(newArgs)-1] += (" " + v)
-		} else {
-			newArgs = append(newArgs, v)
-		}
-	
-		if merge && v[0] != '-' && !strings.Contains(v, "=[") && strings.Contains(v, "]") {
-			merge = false
-		} else if v[0] == '-' && strings.Contains(v, "=[") && !strings.Contains(v, "]") {
-			merge = true
-		}
-	}
-	
-	os.Args = newArgs
 
 	c.Handle()
+
+	pidFile := GetPidFile(AppName, ModuleName)
+	if err := RemovePidFile(pidFile); err != nil {
+		panic(err)
+	}
 }
