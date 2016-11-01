@@ -3,6 +3,7 @@ package console
 import (
 	"os"
 	"fmt"
+	"flag"
 	"strings"
 	"path/filepath"
 	"github.com/astaxie/beego"
@@ -66,6 +67,29 @@ func GetNewArgs() []string {
 	}
 	
 	return newArgs
+}
+
+func SetRunArgs() {
+	OsArgs  = os.Args
+	runArgs := []string{}
+	runArgs = append(runArgs, os.Args[:1]...)
+	for _, v := range os.Args {
+		if strings.Contains(v, "-runid=") {
+			runArgs = append(runArgs, v)
+		}
+	}
+	os.Args = runArgs
+
+	var runid = flag.String("runid", "", "app run id")
+	flag.Parse()
+	
+	os.Args = OsArgs
+	
+	AppName    = beego.AppConfig.String("appname")
+	RouteName  = os.Args[2]
+	ModuleName = GetModuleName(RouteName)
+	RunId      = *runid
+	PidFile    = GetPidFile()
 }
 
 func GetModuleName(routeName string) string {

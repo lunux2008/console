@@ -4,28 +4,42 @@ import (
 	"os"
 	"fmt"
 	"syscall"
-	"github.com/astaxie/beego"
 )
 
 var (
 	OsArgs	  	 []string
-	AppName		 string = ""
-	ModuleName   string = ""
-	RouteName	 string = ""
-	PidFile		 string = ""
+	AppName		 = ""
+	ModuleName   = ""
+	RouteName	 = ""
+	RunId		 = ""
+	PidFile		 = ""
+	SignalHooks  map[int]map[os.Signal][]func()
+)
+
+const (
+	// PreSignal is the position to add filter before signal
+	PreSignal = iota
+	// FireSignal is the position to add filter fire signal
+	FireSignal
+	// PostSignal is the position to add filter after signal
+	PostSignal
 )
 
 func init() {
 
+	if syscall.Getppid() == 1 {
+		syscall.Umask(0)
+	}
+	
+	os.Args = GetNewArgs()
+
 	CheckOsArgs()
-
-	AppName    = beego.AppConfig.String("appname")
-	RouteName  = os.Args[2]
-	ModuleName = GetModuleName(RouteName)
-	PidFile    = GetPidFile(AppName, RouteName)
-
+	
+	SetRunArgs()
+	
 	control := GetControl()
-	if control != "console" {
+
+	if control != "console" && control != "start" {
 		SwitchControl(control)
 		os.Exit(0)
 	}
@@ -37,21 +51,7 @@ func init() {
 		os.Exit(0)
 	}
 
-	OsArgs  = os.Args
-	os.Args = GetNewArgs()
-
+	InitSignalHooks()
+	
 	go SignalNotify()
-}
-
-func SwitchControl(control string) {
-	switch control {
-	default:
-		fmt.Println("Invalid Control Arg")
-	case "reload":
-		SendSignal(syscall.SIGUSR1)
-	case "restart":
-		SendSignal(syscall.SIGHUP)
-	case "stop":
-		SendSignal(syscall.SIGTERM)
-	}
 }

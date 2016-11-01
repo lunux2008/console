@@ -7,14 +7,20 @@ import (
 	"strconv"
 )
 
-func GetPidFile(appName, routeName string) string {
+func GetPidFile() string {
 	pidFile := "/tmp/lunux2008.console."
-	
-	if appName != "" {
-		pidFile += (appName + ".")
+
+	if AppName != "" {
+		pidFile += (AppName + ".")
 	}
-	
-	return pidFile + strings.Replace(routeName, "/", "_" , -1) + ".pid"
+
+	pidFile += strings.Replace(RouteName, "/", "_" , -1) + "."
+
+	if RunId != "" {
+		pidFile += (RunId + ".")
+	}
+
+	return pidFile + "pid"
 }
 
 func CreatePidFile(pidFile string) error {

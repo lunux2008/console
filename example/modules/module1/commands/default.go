@@ -13,8 +13,8 @@ type MainCommand struct {
 func (c *MainCommand) Handle() {
 	
 	// 字符
-	// stringArg, _ := c.GetString("string", "def")
-	// fmt.Println(stringArg)
+	stringArg, _ := c.GetString("string", "def")
+	fmt.Println(stringArg)
 	
 	// 整形
 	// intArg, _ := c.GetInt("int", 200)
@@ -50,6 +50,14 @@ func (c *MainCommand) Handle() {
 	
 	// 查看当前运行环境
 	fmt.Println(beego.AppConfig.String("env"))
+	
+	console.AddPreReloadHook(func () {
+		fmt.Println("PreSignal syscall.SIGUSR1")
+	})
+	
+	console.AddFireGraceHook(func () {
+		fmt.Println("graceHooks")
+	})
 	
 	for {}
 }

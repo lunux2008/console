@@ -82,9 +82,14 @@ func (c *Command) ParseOptions(options []*Option) {
 	}
 
 	// remove command route
-	os.Args = append(os.Args[:1], os.Args[3:]...)
+	tmp := []string{}
+	tmp = append(tmp, os.Args[:1]...)
+	tmp = append(tmp, os.Args[3:]...)
+	os.Args = tmp
 	
 	flag.Parse()
+	
+	os.Args = OsArgs
 }
 
 // GetCommandName gets the executing command name.
