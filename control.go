@@ -84,7 +84,7 @@ func Restart() (err error) {
 	}
 
 	if err = RemovePidFile(PidFile); err != nil {
-		fmt.Println("Remove pid file err: " + err.Error())
+		fmt.Println(err.Error())
 		return
 	}
 	

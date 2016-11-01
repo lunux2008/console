@@ -2,6 +2,7 @@ package console
 
 import (
 	"os"
+	"fmt"
 	"os/signal"
 	"syscall"
 	"strconv"
@@ -36,17 +37,25 @@ func SendSignal(sig syscall.Signal) {
 	var pid int64
 	var process *os.Process
 	
-	content := ReadFile(PidFile)
+	content, err := ReadFile(PidFile)
+	if err != nil {
+		fmt.Println(err.Error())
+		os.Exit(0)
+	}
+	
 	if pid, err = strconv.ParseInt(content, 10, 32); err != nil {
-		panic(err)
+		fmt.Println(err.Error())
+		os.Exit(0)
 	}
 	
 	if process, err = os.FindProcess(int(pid)); err != nil {
-		panic(err)
+		fmt.Println(err.Error())
+		os.Exit(0)
 	}
 	
 	if err = process.Signal(sig); err != nil {
-		panic(err)
+		fmt.Println(err.Error())
+		os.Exit(0)
 	}
 }
 

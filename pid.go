@@ -40,6 +40,7 @@ func CheckPidFileExists(pidFile string) {
 	
 	// create pid file
 	if err := CreatePidFile(pidFile); err != nil {
-		panic(err)
+		fmt.Println(err.Error())
+		os.Exit(0)
 	}
 }

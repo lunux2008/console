@@ -57,18 +57,21 @@ func (c *Command) Finish() {}
 
 // define command options.
 func (c *Command) GetOptions() ([]*Option) {
-	panic("GetOptions Method Should Be rewrite")
+	fmt.Println("GetOptions Method Should Be rewrite")
+	os.Exit(0)
+	
 	return nil
 }
 
 // Handle adds a request function to handle request.
 func (c *Command) Handle() {
-	panic("Handle Method Should Be rewrite")
+	fmt.Println("Handle Method Should Be rewrite")
+	os.Exit(0)
 }
 
 // StopRun makes panic of USERSTOPRUN error and go to recover function if defined.
 func (c *Command) StopRun() {
-	panic("Stop Run")
+	panic("StopRun")
 }
 
 // ParseOptions maps input data map to obj struct.
@@ -454,7 +457,8 @@ func (p *commandInfo) Handle() {
 	execCommand, ok := vc.Interface().(CommandInterface)
 	
 	if !ok {
-		panic("Command Is Not CommandInterface")
+		fmt.Println("Command Is Not CommandInterface")
+		os.Exit(0)
 	}
 	
 	execCommand.Init(p.pattern, execCommand.GetOptions())
@@ -504,6 +508,7 @@ func (p *CommandRegister) Dispatch() {
 	c.Handle()
 
 	if err := RemovePidFile(PidFile); err != nil {
-		panic(err)
+		fmt.Println(err.Error())
+		os.Exit(0)
 	}
 }
