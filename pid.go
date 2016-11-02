@@ -34,7 +34,7 @@ func RemovePidFile(pidFile string) error {
 
 func CheckPidFileExists(pidFile string) {
 	if FileExists(pidFile) {
-		fmt.Printf("pid file: %s exists, application exit\n", pidFile)
+		fmt.Printf("Pid File: %s Exists, Application Exit\n", pidFile)
 		os.Exit(0)
 	}
 	

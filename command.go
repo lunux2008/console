@@ -57,7 +57,7 @@ func (c *Command) Finish() {}
 
 // define command options.
 func (c *Command) GetOptions() ([]*Option) {
-	fmt.Println("GetOptions Method Should Be rewrite")
+	fmt.Println("GetOptions Method Should Be Rewrite")
 	os.Exit(0)
 	
 	return nil
@@ -65,7 +65,7 @@ func (c *Command) GetOptions() ([]*Option) {
 
 // Handle adds a request function to handle request.
 func (c *Command) Handle() {
-	fmt.Println("Handle Method Should Be rewrite")
+	fmt.Println("Handle Method Should Be Rewrite")
 	os.Exit(0)
 }
 

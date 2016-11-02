@@ -12,15 +12,19 @@ var stopping bool = false
 func SwitchControl(control string) {
 	switch control {
 	default:
-		fmt.Println("Undefined Control")
+		Usage()
 	case "reload":
 		SendSignal(syscall.SIGUSR1)
+		fmt.Println("Reload Success")
 	case "grace":
 		SendSignal(syscall.SIGUSR2)
+		fmt.Println("Grace-Restart Success")
 	case "restart":
 		SendSignal(syscall.SIGHUP)
+		fmt.Println("Restart Success")
 	case "stop":
 		SendSignal(syscall.SIGTERM)
+		fmt.Println("Stop Success")
 	}
 }
 
@@ -43,7 +47,6 @@ func Terminate() {
 	}
 
 	RemoveFile(PidFile)
-	fmt.Println("Stop Success")
 	os.Exit(0)
 } 
 
@@ -68,8 +71,6 @@ func Reload() (err error) {
 	PidFile = GetPidFile()
 	
 	CheckPidFileExists(PidFile)
-	
-	fmt.Println("Reload Success")
 	
 	stopping = false
 	
@@ -105,7 +106,6 @@ func Restart() (err error) {
 	}
 	proc.Release()
 	
-	fmt.Println("Restart Success")
 	os.Exit(0)
 	
 	return

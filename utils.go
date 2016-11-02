@@ -9,9 +9,18 @@ import (
 	"github.com/astaxie/beego"
 )
 
+func Usage() {
+	fmt.Println("Usage:")
+	fmt.Printf("%s start   <route> [-arg1=your_arg1] [-args1=[arg1 arg2 arg3]]\n", os.Args[0])
+	fmt.Printf("%s reload  <route> \n", os.Args[0])
+	fmt.Printf("%s grace   <route> \n", os.Args[0])
+	fmt.Printf("%s restart <route> \n", os.Args[0])
+	fmt.Printf("%s stop    <route> \n", os.Args[0])
+}
+
 func CheckOsArgs() {
 	if len(os.Args) < 3 {
-		fmt.Println("Not Enough Args")
+		Usage()
 		os.Exit(0)
 	}
 }
@@ -20,7 +29,7 @@ func GetControl() string {
 	envArgs := strings.Split(os.Args[1], "::")
 	
 	if len(envArgs) == 0 {
-		fmt.Println("Invalid Console Args")
+		Usage()
 		os.Exit(0)
 	}
 	
