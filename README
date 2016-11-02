@@ -1,3 +1,4 @@
+
 请先安装BEEGO框架: go get github.com/astaxie/beego
 
 进入console/example目录后执行：
@@ -17,5 +18,4 @@ go run main.go start demo -name=test -age=10 -arr=[a b c] -ints=[1 2 3]
    go run main.go start demo -runid=1  
    go run main.go start demo -runid=2
    go run main.go start demo -runid=3
-
 
