@@ -1,11 +1,11 @@
 请先安装BEEGO框架: go get github.com/astaxie/beego
 
 进入console/example目录后执行：
-1. 启动      go run main.go start   demo  
+1. 启动脚本  go run main.go start   demo  
 2. 重读配置  go run main.go reload  demo  
 3. 优雅重启  go run main.go grace   demo  
-4. 重启      go run main.go restart demo  
-5. 停止      go run main.go stop    demo   
+4. 重启脚本  go run main.go restart demo  
+5. 停止脚本  go run main.go stop    demo   
 
 命令行传递参数：
 go run main.go start demo -name=test -age=10 -arr=[a b c] -ints=[1 2 3]
