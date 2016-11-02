@@ -1,4 +1,3 @@
-
 请先安装BEEGO框架: go get github.com/astaxie/beego
 
 进入console/example目录后执行：
