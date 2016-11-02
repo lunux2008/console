@@ -1,0 +1,19 @@
+请先安装BEEGO框架: go get github.com/astaxie/beego
+
+进入console/example目录后执行：
+1. 启动      go run main.go start   demo  
+2. 重读配置  go run main.go reload  demo  
+3. 优雅重启  go run main.go grace   demo  
+4. 重启      go run main.go restart demo  
+5. 停止      go run main.go stop    demo   
+
+命令行传递参数：
+go run main.go start demo -name=test -age=10 -arr=[a b c] -ints=[1 2 3]
+
+其他功能
+1. 使用命令行参数决定运行环境  go run main.go start::dev demo
+2. 使用模块 go run main.go start module1/demo
+3. 使用 -runid 参数对同一个脚本启动多个进程
+   go run main.go start demo -runid=1  
+   go run main.go start demo -runid=2
+   go run main.go start demo -runid=3
