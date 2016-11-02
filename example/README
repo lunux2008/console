@@ -1,9 +1,0 @@
-用法：
-请先安装BEEGO：go get github.com/astaxie/beego
-
-1. 使用配置文件决定运行环境    go run main.go console demo  
-2. 使用命令行参数决定运行环境  go run main.go console::dev demo
-3. 使用模块 go run main.go console module1/demo
-
-命令行传递参数：
-go run main.go console demo -name=test -age=10 -arr=[a b c] -ints=[1 2 3]
